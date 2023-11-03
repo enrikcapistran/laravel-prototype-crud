@@ -28,13 +28,18 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
+                    @if ($message = Session::get('warning'))
+                        <div class="alert alert-warning">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
 
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>Id</th>
+                                        <th>No.</th>
                                         
 										<th>Nombre</th>
 										<th>Crédito</th>
@@ -62,7 +67,7 @@
                                                     <a class="btn btn-sm btn-outline-success" href="{{ route('clientes.edit',$cliente->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <a type="submit" class="btn btn-outline-danger btn-sm " onclick="return confirm('¿Desea eliminar esta campo?')"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</a>
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Desea eliminar esta campo?')"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
                                                 </form>
                                             </td>
                                         </tr>

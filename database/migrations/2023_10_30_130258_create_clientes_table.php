@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->decimal('credito',10,2);
             $table->decimal('deuda',10,2);
-            $table->string('estado');
+            $table->enum('estado', ['BC', 'DURANGO', 'SINALOA', 'SONORA']);
             $table->char('vigencia', 1);
             $table->timestamps();
         });

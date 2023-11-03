@@ -48,7 +48,7 @@ class DeudaController extends Controller
         $deuda = Deuda::create($request->all());
 
         return redirect()->route('deudas.index')
-            ->with('success', 'Deuda created successfully.');
+            ->with('success', 'Deuda creada.');
     }
 
     /**
@@ -91,7 +91,7 @@ class DeudaController extends Controller
         $deuda->update($request->all());
 
         return redirect()->route('deudas.index')
-            ->with('success', 'Deuda updated successfully');
+            ->with('success', 'Deuda actualizada');
     }
 
     /**
@@ -104,6 +104,6 @@ class DeudaController extends Controller
         $deuda = Deuda::find($id)->delete();
 
         return redirect()->route('deudas.index')
-            ->with('success', 'Deuda deleted successfully');
+            ->with('success', 'Deuda eliminada');
     }
 }

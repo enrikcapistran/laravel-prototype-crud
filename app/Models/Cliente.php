@@ -44,10 +44,10 @@ class Cliente extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function deudas()
-    {
-        return $this->hasMany('App\Models\Deuda', 'cliente_id', 'id');
-    }
+    //public function deudas()
+    //{
+    //    return $this->hasMany('App\Models\Deuda', 'cliente_id', 'id');
+    //}
     
 
 }

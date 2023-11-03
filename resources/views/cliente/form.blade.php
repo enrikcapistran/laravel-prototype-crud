@@ -30,6 +30,6 @@
     </div>
     <div class="box-footer text-center">
         <br>
-        <button type="submit" class="btn btn-warning">{{ __('Actualizar') }}</button>
+        <button type="submit" class="btn btn-warning">{{ __('Enviar') }}</button>
     </div>
 </div>
