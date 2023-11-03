@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('credito',10,2);
             $table->decimal('deuda',10,2);
             $table->string('estado');
-            $table->char('vigencia');
+            $table->char('vigencia', 1);
             $table->timestamps();
         });
     }

@@ -62,7 +62,7 @@
                                                     <a class="btn btn-sm btn-outline-success" href="{{ route('clientes.edit',$cliente->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-outline-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
+                                                    <a type="submit" class="btn btn-outline-danger btn-sm " onclick="return confirm('¿Desea eliminar esta campo?')"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</a>
                                                 </form>
                                             </td>
                                         </tr>
