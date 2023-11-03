@@ -6,8 +6,8 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
+        <div class="row justify-content-center">
+            <div class="col-sm-9">
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -17,7 +17,7 @@
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('clientes.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('clientes.create') }}" class="btn btn-outline-primary  btn-sm float-right"  data-placement="left">
                                   {{ __('Nuevo Cliente') }}
                                 </a>
                               </div>
@@ -34,10 +34,10 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
+                                        <th>Id</th>
                                         
 										<th>Nombre</th>
-										<th>Credito</th>
+										<th>Crédito</th>
 										<th>Deuda</th>
 										<th>Estado</th>
 										<th>Vigencia</th>
@@ -51,18 +51,18 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $cliente->nombre }}</td>
-											<td>{{ $cliente->credito }}</td>
-											<td>{{ $cliente->deuda }}</td>
+											<td>${{ $cliente->credito }}</td>
+											<td>${{ $cliente->deuda }}</td>
 											<td>{{ $cliente->estado }}</td>
 											<td>{{ $cliente->vigencia }}</td>
 
                                             <td>
                                                 <form action="{{ route('clientes.destroy',$cliente->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('clientes.show',$cliente->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Mostrar') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('clientes.edit',$cliente->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
+                                                    <a class="btn btn-sm btn-outline-primary" href="{{ route('clientes.show',$cliente->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Mostrar') }}</a>
+                                                    <a class="btn btn-sm btn-outline-success" href="{{ route('clientes.edit',$cliente->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
                                                 </form>
                                             </td>
                                         </tr>

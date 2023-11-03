@@ -6,15 +6,15 @@
 
 @section('content')
     <section class="content container-fluid">
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
                             <span class="card-title">{{ __('Mostrar') }} Clientes</span>
                         </div>
-                        <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('clientes.index') }}"> {{ __('Atrás') }}</a>
+                        <div class="text-right">
+                            <a class="btn btn-warning" href="{{ route('clientes.index') }}"> {{ __('Atrás') }}</a>
                         </div>
                     </div>
 
@@ -26,11 +26,11 @@
                         </div>
                         <div class="form-group">
                             <strong>Credito:</strong>
-                            {{ $cliente->credito }}
+                            ${{ $cliente->credito }}
                         </div>
                         <div class="form-group">
                             <strong>Deuda:</strong>
-                            {{ $cliente->deuda }}
+                            ${{ $cliente->deuda }}
                         </div>
                         <div class="form-group">
                             <strong>Estado:</strong>

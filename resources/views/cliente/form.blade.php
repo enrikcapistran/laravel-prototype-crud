@@ -28,7 +28,8 @@
         </div>
 
     </div>
-    <div class="box-footer mt20">
-        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+    <div class="box-footer text-center">
+        <br>
+        <button type="submit" class="btn btn-warning">{{ __('Actualizar') }}</button>
     </div>
 </div>
