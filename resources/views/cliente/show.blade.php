@@ -25,13 +25,13 @@
                             {{ $cliente->nombre }}
                         </div>
                         <div class="form-group">
-                            <strong>Credito:</strong>
-                            ${{ $cliente->credito }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Deuda:</strong>
-                            ${{ $cliente->deuda }}
-                        </div>
+                        <strong>Credito:</strong>
+                        {{ number_format($cliente->credito, 2) }}
+                    </div>
+                    <div class="form-group">
+                        <strong>Deuda:</strong>
+                        {{ number_format($cliente->deuda, 2) }}
+                    </div>
                         <div class="form-group">
                             <strong>Estado:</strong>
                             {{ $cliente->estado }}

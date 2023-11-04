@@ -56,8 +56,8 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $cliente->nombre }}</td>
-											<td>${{ $cliente->credito }}</td>
-											<td>${{ $cliente->deuda }}</td>
+											<td> ${{ number_format($cliente->credito, 2) }}</td>
+											<td> ${{ number_format($cliente->deuda, 2) }}</td>
 											<td>{{ $cliente->estado }}</td>
 											<td>{{ $cliente->vigencia }}</td>
 
