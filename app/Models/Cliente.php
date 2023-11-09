@@ -31,7 +31,7 @@ class Cliente extends Model
 		'vigencia' => 'required',
     ];
 
-    protected $perPage = 50;
+    protected $perPage = 25;
 
     /**
      * Attributes that should be mass-assignable.
