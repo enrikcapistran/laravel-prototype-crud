@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ __('Create') }} Cliente
+    {{ __('Crear') }} Cliente
 @endsection
 
 @section('content')

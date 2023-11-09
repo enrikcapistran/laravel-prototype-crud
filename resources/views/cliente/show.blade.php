@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $cliente->name ?? "{{ __('Show') Cliente" }}
+    {{ $cliente->name ?? "{{ __('Mostrar') Cliente" }}
 @endsection
 
 @section('content')
@@ -25,13 +25,13 @@
                             {{ $cliente->nombre }}
                         </div>
                         <div class="form-group">
-                        <strong>Credito:</strong>
-                        {{ number_format($cliente->credito, 2) }}
-                    </div>
-                    <div class="form-group">
-                        <strong>Deuda:</strong>
-                        {{ number_format($cliente->deuda, 2) }}
-                    </div>
+                            <strong>Credito:</strong>
+                            {{ number_format($cliente->credito, 2) }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Deuda:</strong>
+                            {{ number_format($cliente->deuda, 2) }}
+                        </div>
                         <div class="form-group">
                             <strong>Estado:</strong>
                             {{ $cliente->estado }}
