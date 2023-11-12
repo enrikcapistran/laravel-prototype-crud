@@ -5,103 +5,74 @@ namespace App\Http\Controllers;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
 
-/**
- * Class ClienteController
- * @package App\Http\Controllers
- */
 class ClienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $clientes = Cliente::paginate();
+    protected $cliente;
 
-        return view('cliente.index', compact('clientes'))
-            ->with('i', (request()->input('page', 1) - 1) * $clientes->perPage());
+    public function __construct(Cliente $cliente)
+    {
+        $this->cliente = $cliente;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function index()
+    {
+        $clientes = $this->cliente->todo();
+        return view('cliente.index', compact('clientes'));
+    }
+
+    public function show($id)
+    {
+        $cliente = $this->cliente->buscar($id);
+        return view('cliente.show', compact('cliente'));
+    }
+
     public function create()
     {
         $cliente = new Cliente();
         return view('cliente.create', compact('cliente'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        request()->validate(Cliente::$rules);
+        $data = $request->validate([
+            'nombre' => 'required',
+            'credito' => 'required|numeric|min:0',
+            'deuda' => 'required|numeric|min:0',
+            'estado' => 'required|in:BC,DURANGO,SINALOA,SONORA',
+            'vigencia' => 'required|in:A,Z',
+        ]);
 
-        $cliente = Cliente::create($request->all());
+        $this->cliente->crear($data);
 
         return redirect()->route('clientes.index')
             ->with('success', 'Cliente creado exitosamente.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $cliente = Cliente::find($id);
-
-        return view('cliente.show', compact('cliente'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        $cliente = Cliente::find($id);
-
+        $cliente = $this->cliente->buscar($id);
         return view('cliente.edit', compact('cliente'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  Cliente $cliente
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request, $id)
     {
-        request()->validate(Cliente::$rules);
+        $data = $request->validate([
+            'nombre' => 'required',
+            'credito' => 'required|numeric|min:0',
+            'deuda' => 'required|numeric|min:0',
+            'estado' => 'required|in:BC,DURANGO,SINALOA,SONORA',
+            'vigencia' => 'required|in:A,I',
+        ]);
 
-        $cliente->update($request->all());
+        $this->cliente->actualizar($id, $data);
 
         return redirect()->route('clientes.index')
             ->with('success', 'Cliente ha sido actualizado.');
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
     public function destroy($id)
     {
-        $cliente = Cliente::find($id)->delete();
+        $this->cliente->borrar($id);
 
         return redirect()->route('clientes.index')
             ->with('success', 'Cliente ha sido eliminado.');

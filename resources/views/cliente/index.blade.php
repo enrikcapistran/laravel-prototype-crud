@@ -16,11 +16,11 @@
                                 {{ __('Clientes') }}
                             </span>
 
-                             <div class="float-right">
-                                <a href="{{ route('clientes.create') }}" class="btn btn-outline-primary  btn-sm float-right"  data-placement="left">
+                            <div class="float-right">
+                                <a href="{{ route('clientes.create') }}" class="btn btn-outline-primary  btn-sm float-right" data-placement="left">
                                   {{ __('Nuevo Cliente') }}
                                 </a>
-                              </div>
+                            </div>
                         </div>
                     </div>
                     @if ($message = Session::get('success'))
@@ -40,34 +40,31 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No.</th>
-                                        
-										<th>Nombre</th>
-										<th>Crédito</th>
-										<th>Deuda</th>
-										<th>Estado</th>
-										<th>Vigencia</th>
-
+                                        <th>Nombre</th>
+                                        <th>Crédito</th>
+                                        <th>Deuda</th>
+                                        <th>Estado</th>
+                                        <th>Vigencia</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($clientes as $cliente)
+                                    @foreach ($clientes as $index => $cliente)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
-                                            
-											<td>{{ $cliente->nombre }}</td>
-											<td> ${{ number_format($cliente->credito, 2) }}</td>
-											<td> ${{ number_format($cliente->deuda, 2) }}</td>
-											<td>{{ $cliente->estado }}</td>
-											<td>{{ $cliente->vigencia }}</td>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ $cliente->nombre }}</td>
+                                            <td>${{ number_format($cliente->credito, 2) }}</td>
+                                            <td>${{ number_format($cliente->deuda, 2) }}</td>
+                                            <td>{{ $cliente->estado }}</td>
+                                            <td>{{ $cliente->vigencia }}</td>
 
                                             <td>
-                                                <form action="{{ route('clientes.destroy',$cliente->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-outline-primary" href="{{ route('clientes.show',$cliente->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Mostrar') }}</a>
-                                                    <a class="btn btn-sm btn-outline-success" href="{{ route('clientes.edit',$cliente->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
+                                                <form action="{{ route('clientes.destroy', $cliente->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-outline-primary" href="{{ route('clientes.show', $cliente->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Mostrar') }}</a>
+                                                    <a class="btn btn-sm btn-outline-success" href="{{ route('clientes.edit', $cliente->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Desea eliminar esta campo?')"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Desea eliminar este cliente?')"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -77,7 +74,6 @@
                         </div>
                     </div>
                 </div>
-                {!! $clientes->links() !!}
             </div>
         </div>
     </div>

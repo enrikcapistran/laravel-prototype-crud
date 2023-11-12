@@ -7,7 +7,7 @@
 @section('content')
     <section class="content container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
@@ -25,7 +25,7 @@
                             {{ $cliente->nombre }}
                         </div>
                         <div class="form-group">
-                            <strong>Credito:</strong>
+                            <strong>Crédito:</strong>
                             {{ number_format($cliente->credito, 2) }}
                         </div>
                         <div class="form-group">
