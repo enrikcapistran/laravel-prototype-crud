@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+use App\Services\ClienteService;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
     protected $cliente;
 
-    public function __construct(Cliente $cliente)
+    public function __construct(ClienteService $cliente)
     {
         $this->cliente = $cliente;
     }
@@ -28,7 +29,7 @@ class ClienteController extends Controller
 
     public function create()
     {
-        $cliente = new Cliente();
+        $cliente = $this->cliente->crearClienteTemporal();
         return view('cliente.create', compact('cliente'));
     }
 
@@ -61,7 +62,7 @@ class ClienteController extends Controller
             'credito' => 'required|numeric|min:0',
             'deuda' => 'required|numeric|min:0',
             'estado' => 'required|in:BC,DURANGO,SINALOA,SONORA',
-            'vigencia' => 'required|in:A,I',
+            'vigencia' => 'required|in:A,Z',
         ]);
 
         $this->cliente->actualizar($id, $data);
