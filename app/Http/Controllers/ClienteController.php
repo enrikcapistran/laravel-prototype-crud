@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
-use App\Services\ClienteService;
+use App\Services\ClienteServiceEloquent;
+use App\Services\ClienteServiceQueryBuilder;
+use App\Services\ClienteServiceSQL;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
     protected $cliente;
 
-    public function __construct(ClienteService $cliente)
+    public function __construct(ClienteServiceSQL $cliente)
     {
         $this->cliente = $cliente;
     }

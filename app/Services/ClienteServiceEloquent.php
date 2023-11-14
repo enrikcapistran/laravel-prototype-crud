@@ -1,9 +1,10 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\Cliente;
 
-class ClienteService
+class ClienteServiceEloquent
 {
     protected $cliente;
 
@@ -34,6 +35,8 @@ class ClienteService
 
     public function actualizar($id, array $data)
     {
+        
+    dd($data); // Agrega esta línea para depurar
         $cliente = $this->cliente->findOrFail($id);
         $cliente->update($data);
         return $cliente;
@@ -45,3 +48,4 @@ class ClienteService
         $cliente->delete();
     }
 }
+
