@@ -37,10 +37,10 @@ class ClienteServiceSQL
     }
 
     public function crear(array $data)
-    {
-        return DB::insert("INSERT INTO $this->table (nombre, credito, deuda, estado, vigencia) 
-        VALUES (?, ?, ?, ?, ?)", $data);
-    }
+{
+    return DB::insert("INSERT INTO $this->table (nombre, credito, deuda, estado, vigencia) 
+    VALUES (?, ?, ?, ?, ?)", [$data['nombre'], $data['credito'], $data['deuda'], $data['estado'], $data['vigencia']]);
+}
 
     public function actualizar($id, array $data)
 {
