@@ -36,7 +36,7 @@ class ClienteServiceEloquent
     public function actualizar($id, array $data)
     {
         
-    dd($data); // Agrega esta línea para depurar
+        //dd($data);
         $cliente = $this->cliente->findOrFail($id);
         $cliente->update($data);
         return $cliente;

@@ -1,9 +1,10 @@
 <?php
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Modelo;
 
-class Cliente extends Model
+class ClienteModelo
 {
     protected $fillable = [
         'nombre',
@@ -12,14 +13,16 @@ class Cliente extends Model
         'estado',
         'vigencia',
     ];
-
     public function getVigenciaPredeterminado($val)
     {
         return $val ?? 'A';
     }
+
 
     //public function deudas()
     //{
     //    return $this->hasMany('App\Models\Deuda', 'cliente_id', 'id');
     //}
 }
+        
+
