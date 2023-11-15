@@ -2,27 +2,59 @@
 
 namespace App\Models;
 
-use App\Models\Modelo;
+use Illuminate\Support\Facades\DB;
 
 class ClienteModelo
 {
-    protected $fillable = [
-        'nombre',
-        'credito',
-        'deuda',
-        'estado',
-        'vigencia',
-    ];
-    public function getVigenciaPredeterminado($val)
+    protected $table = 'clientes';
+
+    public function todo()
     {
-        return $val ?? 'A';
+        $clientes = DB::select("SELECT * FROM {$this->table}");
+        return $clientes;
     }
 
+    public function buscar($id)
+    {
+        $cliente = DB::select("SELECT * FROM {$this->table} WHERE id = :id", ['id' => $id]);
 
-    //public function deudas()
-    //{
-    //    return $this->hasMany('App\Models\Deuda', 'cliente_id', 'id');
-    //}
+        if (empty($cliente)) {
+            abort(404, 'Cliente no encontrado');
+        }
+
+        return $cliente[0];
+    }
+
+    public function crearClienteTemporal()
+    {
+        return (object)[
+            'nombre' => '',
+            'credito' => '',
+            'deuda' => '',
+            'estado' => '',
+            'vigencia' => 'A',
+        ];
+    }
+
+    public function crear(array $data)
+    {
+        DB::table($this->table)->insert($data);
+    }
+
+    public function actualizar($id, array $data)
+    {
+        DB::update("UPDATE {$this->table} SET nombre = ?, credito = ?, deuda = ?, estado = ?, vigencia = ? WHERE id = ?", [
+            $data['nombre'],
+            $data['credito'],
+            $data['deuda'],
+            $data['estado'],
+            $data['vigencia'],
+            $id
+        ]);
+    }
+
+    public function borrar($id)
+    {
+        DB::delete("DELETE FROM {$this->table} WHERE id = ?", [$id]);
+    }
 }
-        
-

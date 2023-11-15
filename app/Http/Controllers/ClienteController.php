@@ -2,82 +2,72 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cliente;
-use App\Services\ClienteServiceEloquent;
-use App\Services\ClienteServiceQueryBuilder;
-use App\Services\ClienteServiceSQL;
+use App\Models\ClienteModelo;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
-    protected $cliente;
+    protected $clienteModelo;
 
-    public function __construct(ClienteServiceSQL $cliente)
+    public function __construct(ClienteModelo $clienteModelo)
     {
-        $this->cliente = $cliente;
+        $this->clienteModelo = $clienteModelo;
     }
 
     public function index()
     {
-        $clientes = $this->cliente->todo();
+        $clientes = $this->clienteModelo->todo();
         return view('cliente.index', compact('clientes'));
     }
 
+
     public function show($id)
     {
-        $cliente = $this->cliente->buscar($id);
+        $cliente = $this->clienteModelo->buscar($id);
+
+        if (!$cliente) {
+            abort(404, 'Cliente no encontrado');
+        }
+
         return view('cliente.show', compact('cliente'));
     }
 
     public function create()
     {
-        $cliente = $this->cliente->crearClienteTemporal();
+        $cliente = $this->clienteModelo->crearClienteTemporal();
         return view('cliente.create', compact('cliente'));
     }
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'nombre' => 'required',
-            'credito' => 'required|numeric|min:0',
-            'deuda' => 'required|numeric|min:0',
-            'estado' => 'required|in:BC,DURANGO,SINALOA,SONORA',
-            'vigencia' => 'required|in:A,Z',
-        ]);
-
-        $this->cliente->crear($data);
-
-        return redirect()->route('clientes.index')
-            ->with('success', 'Cliente creado exitosamente.');
+        $data = $this->validarDatos($request, ['nombre', 'credito', 'deuda', 'estado', 'vigencia']);
+        $this->clienteModelo->crear($data);
+        return redirect()->route('clientes.index');
     }
 
     public function edit($id)
     {
-        $cliente = $this->cliente->buscar($id);
+        $cliente = $this->clienteModelo->buscar($id);
         return view('cliente.edit', compact('cliente'));
     }
 
     public function update(Request $request, $id)
     {
-        $data = $request->validate([
-            'nombre' => 'required',
-            'credito' => 'required|numeric|min:0',
-            'deuda' => 'required|numeric|min:0',
-            'estado' => 'required|in:BC,DURANGO,SINALOA,SONORA',
-            'vigencia' => 'required|in:A,Z',
-        ]);
-
-        $this->cliente->actualizar($id, $data);
-
-        return redirect()->route('clientes.index')
-            ->with('success', 'Cliente ha sido actualizado.');
+        $data = $request->only(['nombre', 'credito', 'deuda', 'estado', 'vigencia']);
+        $this->clienteModelo->actualizar($id, $data);
+        return redirect()->route('clientes.index');
     }
 
     public function destroy($id)
     {
-        $this->cliente->borrar($id);
-
-        return redirect()->route('clientes.index')
-            ->with('success', 'Cliente ha sido eliminado.');
+        $this->clienteModelo->borrar($id);
+        return redirect()->route('clientes.index');
     }
+
+    protected function validarDatos(Request $request, $campos)
+    {
+        return $request->only($campos);
+    }
+
+    
 }
