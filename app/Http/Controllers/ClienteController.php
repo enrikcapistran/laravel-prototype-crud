@@ -46,7 +46,7 @@ class ClienteController extends Controller
             'credito' => 'required|numeric|min:0',
             'deuda' => 'required|numeric|min:0',
             'estado' => ['required', Rule::in(['SINALOA', 'SONORA', 'DURANGO', 'BC'])],
-            'vigencia' => 'required|string|in:A,B',
+            'vigencia' => 'required'
         ]);
 
         $this->clienteModelo->crear($validatedData);
@@ -60,22 +60,22 @@ class ClienteController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $validatedData = $request->validate([
-            'nombre' => 'required|string|max:255',
-            'credito' => 'required|numeric|min:0',
-            'deuda' => 'required|numeric|min:0',
-            'estado' => ['required', Rule::in(['SINALOA', 'SONORA', 'DURANGO', 'BC'])],
-            'vigencia' => 'required|string|in:A,B',
-        ]);
+{
+    $datosValidados = $request->validate([
+        'nombre' => 'required|string|max:255',
+        'credito' => 'required|numeric|min:0',
+        'deuda' => 'required|numeric|min:0',
+        'estado' => ['required', Rule::in(['SINALOA', 'SONORA', 'DURANGO', 'BC'])],
+        'vigencia' => 'required|string|in:A,B',
+    ]);
 
-        $this->clienteModelo->actualizar($id, $validatedData);
-        return redirect()->route('clientes.index');
-    }
+    $this->clienteModelo->actualizar($id, $datosValidados);
+    return redirect()->route('clientes.index');
+}
 
     public function destroy($id)
     {
         $this->clienteModelo->borrar($id);
         return redirect()->route('clientes.index');
-    }
+    }   
 }
