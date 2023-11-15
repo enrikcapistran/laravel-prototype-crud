@@ -2,59 +2,52 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use App\Models\ClienteServicio;
+use App\Models\Classes\Clientes;
 
 class ClienteModelo
 {
-    protected $table = 'clientes';
-
-    public function todo()
+    public function index()
     {
-        $clientes = DB::select("SELECT * FROM {$this->table}");
+        $json = ClienteServicio::index();
+        return $this->mapClientes($json);
+    }
+
+    public function store(Request $request)
+    {
+        $cliente = $this->crearClientePorRequest($request);
+        ClienteServicio::store($cliente);
+    }
+
+    public function editar(Request $request, string $id)
+    {
+        $cliente = $this->crearClientePorRequest($request, $id);
+        ClienteServicio::editar($cliente);
+    }
+
+    public function eliminar(string $id)
+    {
+        ClienteServicio::delete($id);
+    }
+
+    private function mapClientes($json)
+    {
+        $clientes = [];
+        foreach ($json as $value) {
+            $clientes[] = new Clientes($value->id, $value->nombre, $value->credito, $value->deuda, $value->estado, $value->vigencia);
+        }
         return $clientes;
     }
 
-    public function buscar($id)
+    private function crearClientePorRequest(Request $request, $id = null)
     {
-        $cliente = DB::select("SELECT * FROM {$this->table} WHERE id = :id", ['id' => $id]);
+        $nombre = $request->input('nombre');
+        $credito = $request->input('credito');
+        $deuda = $request->input('deuda');
+        $estado = $request->input('estado');
+        $vigencia = $request->input('vigencia');
 
-        if (empty($cliente)) {
-            abort(404, 'Cliente no encontrado');
-        }
-
-        return $cliente[0];
-    }
-
-    public function crearClienteTemporal()
-    {
-        return (object)[
-            'nombre' => '',
-            'credito' => '',
-            'deuda' => '',
-            'estado' => '',
-            'vigencia' => 'A',
-        ];
-    }
-
-    public function crear(array $data)
-    {
-        DB::table($this->table)->insert($data);
-    }
-
-    public function actualizar($id, array $data)
-    {
-        DB::update("UPDATE {$this->table} SET nombre = ?, credito = ?, deuda = ?, estado = ?, vigencia = ? WHERE id = ?", [
-            $data['nombre'],
-            $data['credito'],
-            $data['deuda'],
-            $data['estado'],
-            $data['vigencia'],
-            $id
-        ]);
-    }
-
-    public function borrar($id)
-    {
-        DB::delete("DELETE FROM {$this->table} WHERE id = ?", [$id]);
+        return new Clientes($id, $nombre, $credito, $deuda, $estado, $vigencia);
     }
 }

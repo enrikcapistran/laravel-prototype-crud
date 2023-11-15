@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Clases;
+namespace App\Models\Classes;
 
 class Clientes
 {
@@ -11,7 +11,8 @@ class Clientes
     private string $estado;
     private string $vigencia;
 
-    public function __construct(int $id, string $nombre, float $credito, float $deuda, string $estado, string $vigencia)
+    public function __construct(int $id, string $nombre, float $credito, float $deuda, 
+    string $estado, string $vigencia)
     {
         $this->id = $id;
         $this->nombre = $nombre;
@@ -49,17 +50,5 @@ class Clientes
     public function getVigencia(): string
     {
         return $this->vigencia;
-    }
-
-    public static function createFromArray(array $data): self
-    {
-        return new self(
-            $data['id'] ?? 0,
-            $data['nombre'] ?? '',
-            $data['credito'] ?? 0.0,
-            $data['deuda'] ?? 0.0,
-            $data['estado'] ?? '',
-            $data['vigencia'] ?? 'A'
-        );
     }
 }

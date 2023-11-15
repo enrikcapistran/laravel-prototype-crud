@@ -18,7 +18,7 @@
         </div>
         <div class="form-group">
             {{ Form::label('estado', 'Estado') }}
-            {{ Form::select('estado', ['SINALOA' => 'Sinaloa', 'SONORA' => 'Sonora', 'DURANGO' => 'Durango', 'BC' => 'Baja CaliforniaS'], $cliente->estado, ['class' => 'form-control' . ($errors->has('estado') ? ' is-invalid' : '')]) }}
+            {{ Form::select('estado', ['SINALOA' => 'Sinaloa', 'SONORA' => 'Sonora', 'DURANGO' => 'Durango', 'BC' => 'Baja California'], $cliente->estado, ['class' => 'form-control' . ($errors->has('estado') ? ' is-invalid' : '')]) }}
             {!! $errors->first('estado', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">

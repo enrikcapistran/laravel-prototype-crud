@@ -16,10 +16,9 @@ class ClienteController extends Controller
 
     public function index()
     {
-        $clientes = $this->clienteModelo->todo();
+        $clientes = $this->clienteModelo->index(); // Asumiendo que este método no es estático
         return view('cliente.index', compact('clientes'));
     }
-
 
     public function show($id)
     {
@@ -40,8 +39,15 @@ class ClienteController extends Controller
 
     public function store(Request $request)
     {
-        $data = $this->validarDatos($request, ['nombre', 'credito', 'deuda', 'estado', 'vigencia']);
-        $this->clienteModelo->crear($data);
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'credito' => 'required|numeric|min:0',
+            'deuda' => 'required|numeric|min:0',
+            'estado' => ['required', Rule::in(['SINALOA', 'SONORA', 'DURANGO', 'BC'])],
+            'vigencia' => 'required|string|in:A,B',
+        ]);
+
+        $this->clienteModelo->crear($validatedData);
         return redirect()->route('clientes.index');
     }
 
@@ -53,8 +59,15 @@ class ClienteController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = $request->only(['nombre', 'credito', 'deuda', 'estado', 'vigencia']);
-        $this->clienteModelo->actualizar($id, $data);
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'credito' => 'required|numeric|min:0',
+            'deuda' => 'required|numeric|min:0',
+            'estado' => ['required', Rule::in(['SINALOA', 'SONORA', 'DURANGO', 'BC'])],
+            'vigencia' => 'required|string|in:A,B',
+        ]);
+
+        $this->clienteModelo->actualizar($id, $validatedData);
         return redirect()->route('clientes.index');
     }
 
@@ -63,11 +76,4 @@ class ClienteController extends Controller
         $this->clienteModelo->borrar($id);
         return redirect()->route('clientes.index');
     }
-
-    protected function validarDatos(Request $request, $campos)
-    {
-        return $request->only($campos);
-    }
-
-    
 }
