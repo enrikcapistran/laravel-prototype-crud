@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Clientes;
+use App\Models\ClienteModelo;
 
 class ClienteServicio
 {

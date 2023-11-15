@@ -4,15 +4,14 @@ namespace App\Models;
 
 class Clientes
 {
-    public int $id;
+    public ?int $id;
     public string $nombre;
     public float $credito;
     public float $deuda;
     public string $estado;
     public string $vigencia;
 
-    public function __construct(int $id, string $nombre, float $credito, float $deuda, 
-    string $estado, string $vigencia)
+    public function __construct(?int $id, string $nombre, float $credito, float $deuda, string $estado, string $vigencia)
     {
         $this->id = $id;
         $this->nombre = $nombre;
@@ -22,7 +21,7 @@ class Clientes
         $this->vigencia = $vigencia;
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -51,4 +50,5 @@ class Clientes
     {
         return $this->vigencia;
     }
+
 }
