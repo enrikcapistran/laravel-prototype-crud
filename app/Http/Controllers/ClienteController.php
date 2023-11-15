@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\ClienteModelo;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+
 
 class ClienteController extends Controller
 {

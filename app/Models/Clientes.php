@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Models\Classes;
+namespace App\Models;
 
 class Clientes
 {
-    private int $id;
-    private string $nombre;
-    private float $credito;
-    private float $deuda;
-    private string $estado;
-    private string $vigencia;
+    public int $id;
+    public string $nombre;
+    public float $credito;
+    public float $deuda;
+    public string $estado;
+    public string $vigencia;
 
     public function __construct(int $id, string $nombre, float $credito, float $deuda, 
     string $estado, string $vigencia)

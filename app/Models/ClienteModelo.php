@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Http\Request;
 use App\Models\ClienteServicio;
-use App\Models\Classes\Clientes;
+use App\Models\Clientes;
 
 class ClienteModelo
 {
