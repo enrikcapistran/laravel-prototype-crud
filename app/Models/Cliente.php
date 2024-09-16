@@ -2,52 +2,48 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Cliente
- *
- * @property $id
- * @property $nombre
- * @property $credito
- * @property $deuda
- * @property $estado
- * @property $vigencia
- * @property $created_at
- * @property $updated_at
- *
- * @property Deuda[] $deudas
- * @package App
- * @mixin \Illuminate\Database\Eloquent\Builder
- */
 class Cliente extends Model
 {
-    
-    static $rules = [
-		'nombre' => 'required',
-		'credito' => 'required',
-		'deuda' => 'required',
-		'estado' => 'required',
-		'vigencia' => 'required',
-    ];
+    protected $table = 'clientes';
 
-    protected $perPage = 20;
+    protected $fillable = [
+      'nombre',
+      'credito',
+      'deuda',
+      'estado',
+      'vigencia',
+   ];
 
-    /**
-     * Attributes that should be mass-assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['nombre','credito','deuda','estado','vigencia'];
-
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function deudas()
+    public function todo()
     {
-        return $this->hasMany('App\Models\Deuda', 'cliente_id', 'id');
+        return DB::table($this->table)->get();
     }
-    
 
+    public function buscar($id)
+    {
+        return DB::table($this->table)->find($id);
+    }
+
+    public function crear($data)
+    {
+        return DB::table($this->table)->insert($data);
+    }
+
+    public function actualizar($id, $data)
+    {
+        return DB::table($this->table)->where('id', $id)->update($data);
+    }
+
+    public function borrar($id)
+    {
+        return DB::table($this->table)->where('id', $id)->delete();
+    }
+
+    public function getVigenciaPredeterminado($val)
+    {
+        return $val ?? 'A';
+    }
 }

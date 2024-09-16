@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ __('Update') }} Cliente
+    {{ __('Editar') }} Cliente
 @endsection
 
 @section('content')
     <section class="content container-fluid">
-        <div class="">
-            <div class="col-md-12">
+        <div class="row justify-content-center">
+            <div class="col-md-3">
 
                 @includeif('partials.errors')
 
